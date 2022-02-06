@@ -3,6 +3,8 @@ coverage/
 build/
 typings/
 
+admin/a-*.json
+
 .DS_Store
 .env.local
 .env.development.local
