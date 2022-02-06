@@ -51,8 +51,8 @@ export const Login = () => {
 
   return (
     <Page title="TweetForMe | Login">
-      <Flex direction="column" justify="space-between" height="100vh" py="32px">
-        <Box>
+      <Flex direction="column" justify="space-between" height="100vh">
+        <Box py="32px">
           <Logo />
         </Box>
 
