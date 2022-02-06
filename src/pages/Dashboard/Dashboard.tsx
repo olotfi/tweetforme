@@ -29,7 +29,7 @@ export const Dashboard = () => {
       <Box py="32px">
         <AppHeader />
       </Box>
-      <Container maxWidth="520px" mb="72px">
+      <Container maxWidth="520px" mb="48px">
         <Box my="48px">
           <NewTweetForm addTweet={addTweet} />
         </Box>
