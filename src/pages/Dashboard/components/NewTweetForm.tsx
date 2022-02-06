@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import { Button, FormControl, FormErrorMessage, Textarea, VStack } from '@chakra-ui/react';
 import { ErrorAlert } from '../../../components/ErrorAlert';
+import { useCurrentUser } from '../../../context/auth';
+import { TweetsList } from './TweetsList';
+import { createTweet } from '../../../lib/tweets';
+import { Tweet } from '../../../lib/Tweet';
 
-export const NewTweetForm = () => {
+export type NewTweetFormProps = {
+  addTweet: (newTweet: Tweet) => void;
+};
+export const NewTweetForm = ({ addTweet }: NewTweetFormProps) => {
+  const { currentUser } = useCurrentUser();
+
   const [content, setContent] = useState('');
   const [contentFieldError, setContentFieldError] = useState('');
   const [submitError, setSubmitError] = useState('');
@@ -25,7 +34,13 @@ export const NewTweetForm = () => {
     if (contentFieldError) return;
     if (content.length === 0) setContentFieldError('Your tweet cannot be empty.');
     setIsLoading(true);
-    console.log(content); // Replace with Firestore API call
+    try {
+      const tweet = await createTweet(content, currentUser!.uid);
+      addTweet(tweet);
+      setContent('');
+    } catch (error) {
+      setSubmitError((error as Error).message);
+    }
     setIsLoading(false);
   };
 

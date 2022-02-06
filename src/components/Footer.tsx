@@ -3,7 +3,7 @@ import React from 'react';
 
 export const Footer = () => {
   return (
-    <Box textAlign="center" color="gray.500" fontSize="sm">
+    <Box textAlign="center" color="gray.500" fontSize="sm" p="32px">
       <Text>Created by Oly Lotfi.</Text>
       <Text>
         <Link>View on GitHub</Link> - <Link>Go to Rowy</Link>

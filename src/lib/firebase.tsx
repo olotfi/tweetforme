@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration (could be switched to React env vars)
 const firebaseConfig = {
@@ -14,6 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 export const auth = getAuth();
+export const db = getFirestore();
 
 export const mapErrorCodeToUserFriendlyMessage = (errorCode: string) => {
   switch (errorCode) {

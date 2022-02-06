@@ -1,13 +1,25 @@
 import React from 'react';
-import { VStack } from '@chakra-ui/react';
-import { Tweet } from './Tweet';
+import { Center, Spinner, VStack } from '@chakra-ui/react';
+import { Tweet } from '../../../lib/Tweet';
+import { TweetView } from './TweetView';
 
-// Load tweets from Firestore using React Query
-
-export const TweetsList = () => {
+export type TweetsListProps = {
+  tweets: Tweet[];
+  isLoading: boolean;
+};
+export const TweetsList = ({ tweets, isLoading }: TweetsListProps) => {
+  if (isLoading) {
+    return (
+      <Center w="100%" h="500px">
+        <Spinner colorScheme="purple" />
+      </Center>
+    );
+  }
   return (
     <VStack spacing="32px">
-      <Tweet id="test" content="Hello world!" status="submitted" createdAt="2020-01-01" />
+      {tweets.map((tweet) => (
+        <TweetView key={tweet.id} tweet={tweet} />
+      ))}
     </VStack>
   );
 };
