@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
-// Your web app's Firebase configuration
+// Your web app's Firebase configuration (could be switched to React env vars)
 const firebaseConfig = {
   apiKey: 'AIzaSyBRczcO0vfAMr79Y4BDZa8imLsIcbj9mho',
   authDomain: 'tweetforme-c9003.firebaseapp.com',
@@ -14,3 +14,14 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 export const auth = getAuth();
+
+export const mapErrorCodeToUserFriendlyMessage = (errorCode: string) => {
+  switch (errorCode) {
+    case 'auth/user-not-found':
+    case 'auth/wrong-password':
+    case 'auth/invalid-email':
+      return 'Invalid email or password.';
+    default:
+      return 'An unknown error occurred. Please try again later.';
+  }
+};
