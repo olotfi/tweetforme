@@ -1,8 +1,49 @@
-rules_version = '2';
+rules_version = '2'
 service cloud.firestore {
   match /databases/{database}/documents {
+  
+    // ****************************
+    // App Rules
+    // ****************************
+
+    // Allow admins to read and write all documents
     match /{document=**} {
-      allow read, write: if false;
+      allow read, write: if hasAnyRole(["ADMIN", "OWNER"]);
+    }
+    
+    // ****************************
+    // Rowy-specific Rules
+    // ****************************
+
+    // Rowy: Allow signed in users to read Rowy configuration and admins to write
+    match /_rowy_/{docId} {
+      allow read: if request.auth != null;
+      allow write: if hasAnyRole(["ADMIN", "OWNER"]);
+        match /{document=**} {
+        allow read: if request.auth != null;
+        allow write: if hasAnyRole(["ADMIN", "OWNER"]);
+      }
+    }
+    // Rowy: Allow users to edit their settings
+    match /_rowy_/userManagement/users/{userId} {
+      allow get, update, delete: if isDocOwner(userId);
+      allow create: if request.auth != null;
+    }
+    // Rowy: Allow public to read public Rowy configuration
+    match /_rowy_/publicSettings {
+        allow get: if true;
+    }
+    
+    // ****************************
+    // Utility Functions
+    // ****************************
+    
+    function isDocOwner(docId) {
+      return request.auth != null && (request.auth.uid == resource.id || request.auth.uid == docId);
+    }
+    
+    function hasAnyRole(roles) {
+      return request.auth != null && request.auth.token.roles.hasAny(roles);
     }
   }
 }
