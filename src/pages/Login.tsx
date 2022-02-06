@@ -11,8 +11,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Link,
-  Text,
   VStack
 } from '@chakra-ui/react';
 import { AuthError, signInWithEmailAndPassword } from 'firebase/auth';
@@ -22,6 +20,7 @@ import { Logo } from '../components/Logo';
 import { Page } from '../components/Page';
 import { useCurrentUser } from '../context/auth';
 import { auth, mapErrorCodeToUserFriendlyMessage } from '../lib/firebase';
+import { Footer } from '../components/Footer';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -102,12 +101,7 @@ export const Login = () => {
           </form>
         </Box>
 
-        <Box textAlign="center" color="gray.500" fontSize="sm">
-          <Text>Created by Oly Lotfi.</Text>
-          <Text>
-            <Link>View on GitHub</Link> - <Link>Go to Rowy</Link>
-          </Text>
-        </Box>
+        <Footer />
       </Flex>
     </Page>
   );

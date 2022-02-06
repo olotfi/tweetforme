@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
+    return auth.onAuthStateChanged(async (user) => {
       if (user) {
         const { claims } = await auth.currentUser!.getIdTokenResult();
         if (!claims!.roles) {
