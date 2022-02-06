@@ -1,11 +1,7 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
   Box,
   Button,
-  CloseButton,
   Flex,
   FormControl,
   FormLabel,
@@ -21,6 +17,7 @@ import { Page } from '../components/Page';
 import { useCurrentUser } from '../context/auth';
 import { auth, mapErrorCodeToUserFriendlyMessage } from '../lib/firebase';
 import { Footer } from '../components/Footer';
+import { ErrorAlert } from './ErrorAlert';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -67,16 +64,7 @@ export const Login = () => {
           <form onSubmit={handleSubmit}>
             <VStack>
               {loginError ? (
-                <Alert status="error">
-                  <AlertIcon />
-                  <AlertDescription>{loginError}</AlertDescription>
-                  <CloseButton
-                    position="absolute"
-                    right="8px"
-                    top="8px"
-                    onClick={() => setLoginError('')}
-                  />
-                </Alert>
+                <ErrorAlert errorMessage={loginError} onClose={() => setLoginError('')} />
               ) : null}
 
               <FormControl isRequired>
