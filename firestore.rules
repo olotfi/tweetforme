@@ -11,6 +11,12 @@ service cloud.firestore {
       allow read, write: if hasAnyRole(["ADMIN", "OWNER"]);
     }
     
+    // Allow users to read their own tweets and create new ones with status submitted
+    match /tweets/{docId} {
+    	allow read: if isDocOwner(docId);
+      allow create: if request.resource.data.uid == request.auth.uid && request.resource.data.status == 'submitted';
+    }
+    
     // ****************************
     // Rowy-specific Rules
     // ****************************
@@ -38,12 +44,16 @@ service cloud.firestore {
     // Utility Functions
     // ****************************
     
+    function isAuthed() {
+    	return request.auth != null && request.auth.token.roles.hasAny(['USER', 'ADMIN', 'OWNER']);
+    }
+    
     function isDocOwner(docId) {
-      return request.auth != null && (request.auth.uid == resource.id || request.auth.uid == docId);
+      return isAuthed() && (request.auth.uid == resource.id || request.auth.uid == docId);
     }
     
     function hasAnyRole(roles) {
-      return request.auth != null && request.auth.token.roles.hasAny(roles);
+      return isAuthed() && request.auth.token.roles.hasAny(roles);
     }
   }
 }
