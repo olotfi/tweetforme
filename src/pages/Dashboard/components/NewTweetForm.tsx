@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, FormControl, FormErrorMessage, Textarea, VStack } from '@chakra-ui/react';
-import { ErrorAlert } from '../../ErrorAlert';
+import { ErrorAlert } from '../../../components/ErrorAlert';
 
 export const NewTweetForm = () => {
   const [content, setContent] = useState('');

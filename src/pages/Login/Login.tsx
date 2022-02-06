@@ -12,12 +12,12 @@ import {
 import { AuthError, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Logo } from '../components/Logo';
-import { Page } from '../components/Page';
-import { useCurrentUser } from '../context/auth';
-import { auth, mapErrorCodeToUserFriendlyMessage } from '../lib/firebase';
-import { Footer } from '../components/Footer';
-import { ErrorAlert } from './ErrorAlert';
+import { Logo } from '../../components/Logo';
+import { Page } from '../../components/Page';
+import { useCurrentUser } from '../../context/auth';
+import { auth, mapErrorCodeToUserFriendlyMessage } from '../../lib/firebase';
+import { Footer } from '../../components/Footer';
+import { ErrorAlert } from '../../components/ErrorAlert';
 
 export const Login = () => {
   const navigate = useNavigate();
