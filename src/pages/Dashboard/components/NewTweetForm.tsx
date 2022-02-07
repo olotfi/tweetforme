@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
 import { Button, FormControl, FormErrorMessage, Textarea, VStack } from '@chakra-ui/react';
+import React, { useState } from 'react';
 import { ErrorAlert } from '../../../components/ErrorAlert';
 import { useCurrentUser } from '../../../context/auth';
-import { TweetsList } from './TweetsList';
-import { createTweet } from '../../../lib/tweets';
 import { Tweet } from '../../../lib/Tweet';
+import { createTweet } from '../../../lib/tweets';
 
 export type NewTweetFormProps = {
   addTweet: (newTweet: Tweet) => void;
