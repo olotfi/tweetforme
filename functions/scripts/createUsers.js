@@ -1,6 +1,6 @@
 const { initializeApp, applicationDefault } = require('firebase-admin/app');
 const { getAuth } = require('firebase-admin/auth');
-const users = require('./a-users.json');
+const users = require('./.users.json');
 
 // Initialise Firebase
 initializeApp({

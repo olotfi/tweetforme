@@ -3,6 +3,9 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
+  "functions": {
+    "source": "functions"
+  },
   "hosting": {
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
@@ -16,6 +19,9 @@
   "emulators": {
     "auth": {
       "port": 9099
+    },
+    "functions": {
+      "port": 9100
     },
     "firestore": {
       "port": 8080
