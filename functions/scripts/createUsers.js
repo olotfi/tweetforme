@@ -1,11 +1,9 @@
-const { initializeApp, applicationDefault } = require('firebase-admin/app');
-const { getAuth } = require('firebase-admin/auth');
-const users = require('./.users.json');
+const admin = require('firebase-admin');
+const users = require('../.users.json');
 
 // Initialise Firebase
-initializeApp({
-  credential: applicationDefault() // Needs GOOGLE_APPLICATION_CREDENTIALS env var set to the service account key JSON file
-});
+admin.initializeApp(); // Needs GOOGLE_APPLICATION_CREDENTIALS environment variable set to the path of the service account key file
+const auth = admin.auth();
 
 // Load users and create them
 for (const user of users) {
@@ -13,12 +11,11 @@ for (const user of users) {
 }
 
 async function createUser(data) {
-  const auth = getAuth();
   const userRecord = await auth.createUser({
     email: data.email,
     password: data.password,
     displayName: data.name
   });
   await auth.setCustomUserClaims(userRecord.uid, { roles: data.roles });
-  console.log('Successfully created new user:', userRecord.uid, userRecord.email);
+  console.log('Successfully created new user:', userRecord.email, data.roles);
 }
