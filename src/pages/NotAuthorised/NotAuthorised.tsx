@@ -1,10 +1,10 @@
 import { Center, Text } from '@chakra-ui/react';
 import React from 'react';
 
-export const NotFound = () => {
+export const NotAuthorised = () => {
   return (
     <Center width="100vw" height="100vh">
-      <Text>404 Not Found.</Text>
+      <Text>401 Not Authorised.</Text>
     </Center>
   );
 };

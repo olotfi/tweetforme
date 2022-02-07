@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../lib/firebase';
 
 export interface User {
@@ -16,6 +17,7 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue>({ currentUser: null, isLoading: false });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,7 +27,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const { claims } = await auth.currentUser!.getIdTokenResult();
         if (!claims!.roles) {
           auth.signOut();
-          console.log('User does not have roles.');
+          navigate('/not-authorised');
           return;
         } else {
           const currentUser = {
@@ -41,7 +43,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
       setIsLoading(false);
     });
-  }, []);
+  }, [navigate]);
 
   return <AuthContext.Provider value={{ currentUser, isLoading }}>{children}</AuthContext.Provider>;
 };
